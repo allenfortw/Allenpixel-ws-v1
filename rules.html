@@ -107,6 +107,75 @@
             width: 100%;
         }
         
+        /* 英雄區塊 */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/800') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 72px;
+            margin-bottom: 20px;
+            color: var(--light);
+            text-shadow: 3px 3px 0 var(--primary);
+        }
+        
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin-right: 15px;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 85, 85, 0.3);
+        }
+        
+        .btn.secondary {
+            background-color: var(--secondary);
+        }
+        
+        .btn.secondary:hover {
+            box-shadow: 0 10px 20px rgba(85, 85, 255, 0.3);
+        }
+        
+        .hero-animation {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 400px;
+            height: 400px;
+            z-index: 1;
+        }
+        
         /* 規則內容 */
         .rules-content {
             padding: 150px 0 100px;
@@ -226,10 +295,78 @@
             border-top: 1px solid #333;
         }
         
+        /* 動畫效果 */
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        .pixel-decoration {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--primary);
+            animation: spin 10s linear infinite;
+            opacity: 0.5;
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .pixel-1 {
+            top: 10%;
+            left: 5%;
+        }
+        
+        .pixel-2 {
+            top: 20%;
+            right: 10%;
+            background-color: var(--secondary);
+            animation-delay: 2s;
+        }
+        
+        .pixel-3 {
+            bottom: 15%;
+            left: 15%;
+            background-color: var(--accent);
+            animation-delay: 4s;
+        }
+        
+        .pixel-4 {
+            bottom: 10%;
+            right: 5%;
+            animation-delay: 6s;
+        }
+        
         /* 響應式設計 */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
+            }
+            
+            .hero h1 {
+                font-size: 48px;
+            }
+            
+            .hero p {
+                font-size: 18px;
             }
             
             .rules-content h1 {
@@ -260,17 +397,31 @@
             </div>
             <div class="nav-links">
                 <a href="index.html">首頁</a>
-                <a href="index.html#features">特色</a>
-                <a href="index.html#how-to-join">如何加入</a>
-                <a href="index.html#team">團隊</a>
-                <a href="index.html#shop">商店</a>
                 <a href="#" class="active">規則</a>
             </div>
         </div>
     </nav>
     
+    <!-- 英雄區塊 -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1 class="pixel-font animate-float">AllenPixel 社群守則</h1>
+            <p>當您加入伺服器時，即視為同意本社群守則(以下簡稱TOS)，因此強烈建議閱讀完本TOS後再開始遊戲，以維護您的遊玩權益。</p>
+            <a href="#rules-content" class="btn">閱讀守則</a>
+        </div>
+        
+        <div class="pixel-decoration pixel-1"></div>
+        <div class="pixel-decoration pixel-2"></div>
+        <div class="pixel-decoration pixel-3"></div>
+        <div class="pixel-decoration pixel-4"></div>
+        
+        <div class="hero-animation">
+            <!-- 動畫效果位置 -->
+        </div>
+    </section>
+    
     <!-- 規則內容 -->
-    <section class="rules-content">
+    <section class="rules-content" id="rules-content">
         <div class="container">
             <h1 class="pixel-font">AllenPixel 伺服器規則</h1>
             
