@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AllenPixel - 頂尖的起床戰爭體驗</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap');
+        
+        :root {
+            --primary: #ff5555;
+            --secondary: #5555ff;
+            --accent: #ffaa00;
+            --dark: #1f1f1f;
+            --light: #f5f5f5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        .pixel-font {
+            font-family: 'Pixelify Sans', cursive;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 導航欄 */
+        nav {
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .logo h1 {
+            color: var(--light);
+            font-size: 24px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .nav-links a.active {
+            color: var(--primary);
+        }
+        
+        .nav-links a.active:after {
+            width: 100%;
+        }
+        
+        /* 英雄區塊 */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/800') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 72px;
+            margin-bottom: 20px;
+            color: var(--light);
+            text-shadow: 3px 3px 0 var(--primary);
+        }
+        
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin-right: 15px;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 85, 85, 0.3);
+        }
+        
+        .btn.secondary {
+            background-color: var(--secondary);
+        }
+        
+        .btn.secondary:hover {
+            box-shadow: 0 10px 20px rgba(85, 85, 255, 0.3);
+        }
+        
+        .hero-animation {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 400px;
+            height: 400px;
+            z-index: 1;
+        }
+        
+        /* 特色區塊 */
+        .features {
+            padding: 100px 0;
+            background-color: var(--dark);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 48px;
+            color: var(--light);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title p {
+            color: #cccccc;
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 18px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            border-bottom: 4px solid transparent;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-bottom: 4px solid var(--primary);
+            box-shadow: 0 10px 30px rgba(255, 85, 85, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+        
+        .feature-card p {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+        
+        /* 如何加入 */
+        .how-to-join {
+            padding: 100px 0;
+            background-color: #151515;
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .step {
+            flex: 0 0 calc(33.333% - 30px);
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            color: var(--light);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            font-size: 20px;
+        }
+        
+        .step h3 {
+            margin: 20px 0 15px;
+            color: var(--light);
+        }
+        
+        .step p {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+        
+        .server-info {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .server-info h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .server-address {
+            font-size: 24px;
+            font-weight: 700;
+            padding: 15px 30px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border: 2px dashed var(--accent);
+            position: relative;
+            min-width: 350px;
+            justify-content: space-between;
+        }
+        
+        .server-address-text {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .copy-btn {
+            background: var(--accent);
+            border: none;
+            color: var(--dark);
+            padding: 5px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            margin-left: 15px;
+        }
+        
+        .online-players {
+            font-size: 18px;
+            color: #cccccc;
+        }
+        
+        /* 隊伍 */
+        .team {
+            padding: 100px 0;
+            background-color: var(--dark);
+        }
+        
+        .team-members {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .team-member {
+            flex: 0 0 300px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .member-img {
+            width: 100%;
+            height: 300px;
+            background-color: #333;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .member-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+        
+        .team-member:hover .member-img img {
+            transform: scale(1.1);
+        }
+        
+        .member-info {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .member-info h3 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: var(--light);
+        }
+        
+        .member-role {
+            color: var(--primary);
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary);
+        }
+        
+        /* 商店區塊 */
+        .shop {
+            padding: 100px 0;
+            background-color: #151515;
+        }
+        
+        .shop-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .shop-cta {
+            margin-top: 40px;
+        }
+        
+        /* 頁腳 */
+        footer {
+            background-color: #0f0f0f;
+            padding: 50px 0 20px;
+            position: relative;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            flex: 0 0 300px;
+        }
+        
+        .footer-logo img {
+            height: 60px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo p {
+            color: #999;
+            line-height: 1.6;
+        }
+        
+        .footer-links {
+            flex: 0 0 200px;
+        }
+        
+        .footer-links h3 {
+            color: var(--light);
+            margin-bottom: 20px;
+            font-size: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h3:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links ul li a {
+            color: #999;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            color: #666;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+        
+        /* 動畫效果 */
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        .pixel-decoration {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--primary);
+            animation: spin 10s linear infinite;
+            opacity: 0.5;
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .pixel-1 {
+            top: 10%;
+            left: 5%;
+        }
+        
+        .pixel-2 {
+            top: 20%;
+            right: 10%;
+            background-color: var(--secondary);
+            animation-delay: 2s;
+        }
+        
+        .pixel-3 {
+            bottom: 15%;
+            left: 15%;
+            background-color: var(--accent);
+            animation-delay: 4s;
+        }
+        
+        .pixel-4 {
+            bottom: 10%;
+            right: 5%;
+            animation-delay: 6s;
+        }
+        
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 48px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .step {
+                flex: 0 0 100%;
+            }
+            
+            .footer-content > div {
+                flex: 0 0 100%;
+            }
+            
+            .server-address {
+                min-width: auto;
+                width: 100%;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .copy-btn {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 導航欄 -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="/api/placeholder/40/40" alt="AllenPixel Logo">
+                <h1 class="pixel-font">AllenPixel</h1>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="active">首頁</a>
+                <a href="#features">特色</a>
+                <a href="#how-to-join">如何加入</a>
+                <a href="#team">團隊</a>
+                <a href="#shop">商店</a>
+                <a href="rules.html">規則</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 英雄區塊 -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1 class="pixel-font animate-float">AllenPixel</h1>
+            <p>體驗台灣最頂尖的起床戰爭伺服器！低延遲、高級防外掛、台灣節點、繁體中文支援。加入我們的戰場，展現你的實力！</p>
+            <a href="#how-to-join" class="btn">立即加入</a>
+            <a href="https://discord.gg/5pjXXRc3Ut" class="btn secondary" target="_blank">加入 Discord</a>
+        </div>
+        
+        <div class="pixel-decoration pixel-1"></div>
+        <div class="pixel-decoration pixel-2"></div>
+        <div class="pixel-decoration pixel-3"></div>
+        <div class="pixel-decoration pixel-4"></div>
+        
+        <div class="hero-animation">
+            <!-- 動畫效果位置 -->
+        </div>
+    </section>
+    
+    <!-- 特色區塊 -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="pixel-font">伺服器特色</h2>
+                <p>我們致力於打造最佳的起床戰爭體驗，讓每位玩家都能享受到公平、流暢的遊戲過程。</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>低延遲體驗</h3>
+                    <p>我們的伺服器架設在台灣本地節點，確保所有亞洲玩家都能享受最低延遲的遊戲體驗，告別卡頓。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>高級防外掛系統</h3>
+                    <p>採用最先進的防外掛技術，確保遊戲環境公平公正，讓真正的技術決定勝負。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🇹🇼</div>
+                    <h3>繁體中文支援</h3>
+                    <p>全面繁體中文介面與提示，讓華語玩家無需翻譯即可輕鬆上手，享受最直觀的遊戲體驗。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3>專業競技環境</h3>
+                    <p>精心設計的地圖與平衡的遊戲機制，讓每場比賽都充滿策略性與競爭性，適合各級別的玩家。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>定期更新</h3>
+                    <p>我們持續優化遊戲體驗，定期推出新地圖、新模式與系統更新，讓遊戲始終保持新鮮感。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>活躍社群</h3>
+                    <p>加入我們龐大的玩家社群，結交志同道合的夥伴，一起組隊征戰或參與社群活動。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 如何加入 -->
+    <section class="how-to-join" id="how-to-join">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="pixel-font">如何加入</h2>
+                <p>只需簡單幾步，立即加入我們的伺服器，展開你的起床戰爭旅程！</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>準備 Minecraft Java 版</h3>
+                    <p>確保你擁有最新版本的 Minecraft Java 版本遊戲。我們支援 1.8 - 1.20.2 版本。</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>加入我們的伺服器</h3>
+                    <p>在 Minecraft 多人遊戲中輸入我們的伺服器地址 mc.allenpvp.net</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>開始你的冒險</h3>
+                    <p>選擇你喜愛的遊戲模式，與朋友組隊或獨自征戰，展現你的技術與策略！</p>
+                </div>
+            </div>
+            <div class="server-info">
+                <h3 class="pixel-font">伺服器資訊</h3>
+                <div class="server-address">
+                    <div class="server-address-text">mc.allenpvp.net</div>
+                    <button class="copy-btn">複製</button>
+                </div>
+                <p class="online-players">目前在線玩家：<span id="online-count">--</span></p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 團隊 -->
+    <section class="team" id="team">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="pixel-font">我們的團隊</h2>
+                <p>認識這些讓 AllenPixel 運行順暢的幕後功臣。</p>
+            </div>
+            <div class="team-members">
+                <div class="team-member">
+                    <div class="member-img">
+                        <img src="/api/placeholder/300/300" alt="AllenTw">
+                    </div>
+                    <div class="member-info">
+                        <h3>AllenTw</h3>
+                        <div class="member-role">伺服器服主</div>
+                        <p>負責伺服器的整體規劃與發展方向，致力於打造最佳的玩家體驗。</p>
+                        <div class="social-links">
+                            <a href="#">Discord</a>
+                            <a href="#">Twitter</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-img">
+                        <img src="/api/placeholder/300/300" alt="Phdassice">
+                    </div>
+                    <div class="member-info">
+                        <h3>Phdassice</h3>
+                        <div class="member-role">伺服器客服</div>
+                        <p>隨時為玩家解答問題，確保每位玩家都能獲得最佳的遊戲體驗。</p>
+                        <div class="social-links">
+                            <a href="#">Discord</a>
+                            <a href="#">Twitter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 商店 -->
+    <section class="shop" id="shop">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="pixel-font">伺服器商店</h2>
+                <p>支持我們的發展，同時獲得獨特的遊戲體驗與物品。</p>
+            </div>
+            <div class="shop-content">
+                <p>我們的商店系統正在開發中，敬請期待！未來將提供各種特權與外觀供玩家選購，所有收入將用於伺服器的維護與升級。</p>
+                <div class="shop-cta">
+                    <a href="#" class="btn">即將推出</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 頁腳 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="/api/placeholder/60/60" alt="AllenPixel Logo">
+                    <p>AllenPixel - 台灣最頂尖的起床戰爭伺服器。提供低延遲、高級防外掛、台灣節點、繁體中文支援的優質遊戲體驗。</p>
+                </div>
+                <div class="footer-links">
+                    <h3>快速連結</h3>
+                    <ul>
+                        <li><a href="#">首頁</a></li>
+                        <li><a href="#features">特色</a></li>
+                        <li><a href="#how-to-join">如何加入</a></li>
+                        <li><a href="#team">團隊</a></li>
+                        <li><a href="rules.html">規則</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>聯繫我們</h3>
+                    <ul>
+                        <li><a href="https://discord.gg/5pjXXRc3Ut" target="_blank">Discord</a></li>
+                        <li><a href="mailto:info@allenpvp.net">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 AllenPixel. 保留所有權利。</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // 複製伺服器地址
+        document.querySelector('.copy-btn').addEventListener('click', function() {
+            const serverAddress = 'mc.allenpvp.net';
+            navigator.clipboard.writeText(serverAddress).then(function() {
+                const btn = document.querySelector('.copy-btn');
+                btn.textContent = '已複製!';
+                setTimeout(function() {
+                    btn.textContent = '複製';
+                }, 2000);
+            });
+        });
+        
+        // 滾動動畫
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 模擬從API獲取在線玩家數據
+        function fetchOnlinePlayers() {
+            // 在實際環境中，這裡應該是一個 fetch 請求到你的API端點
+            // 這裡模擬一個返回隨機數字的API
+            const min = 90;  // 最小玩家數
+            const max = 150; // 最大玩家數
+            const playerCount = Math.floor(Math.random() * (max - min + 1)) + min;
+            
+            // 更新顯示
+            document.getElementById('online-count').textContent = playerCount;
+        }
+        
+        // 初始獲取在線玩家數據
+        fetchOnlinePlayers();
+        
+        // 每8秒更新一次在線玩家數據
+        setInterval(fetchOnlinePlayers, 8000);
+    </script>
+</body>
+</html>
