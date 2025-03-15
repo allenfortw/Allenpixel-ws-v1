@@ -728,7 +728,7 @@
                     <div class="server-address-text">mc.allenpvp.net</div>
                     <button class="copy-btn">複製</button>
                 </div>
-                <p class="online-players">目前在線玩家：<span id="online-count">--</span></p>
+                <p>目前在線玩家：<span id="player-count" class="player-count loading">loading...</span></p>
             </div>
         </div>
     </section>
@@ -891,24 +891,6 @@
         
         // 每60秒自動更新一次玩家數量
         setInterval(getPlayerCount, 60000);
-		
-        // 模擬從API獲取在線玩家數據
-        function fetchOnlinePlayers() {
-            // 在實際環境中，這裡應該是一個 fetch 請求到你的API端點
-            // 這裡模擬一個返回隨機數字的API
-            const min = 90;  // 最小玩家數
-            const max = 150; // 最大玩家數
-            const playerCount = Math.floor(Math.random() * (max - min + 1)) + min;
-            
-            // 更新顯示
-            document.getElementById('online-count').textContent = playerCount;
-        }
-        
-        // 初始獲取在線玩家數據
-        fetchOnlinePlayers();
-        
-        // 每8秒更新一次在線玩家數據
-        setInterval(fetchOnlinePlayers, 8000);
     </script>
 </body>
 </html>
