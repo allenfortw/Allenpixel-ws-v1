@@ -852,6 +852,46 @@
             });
         });
         
+		        // 獲取在線玩家數量
+        async function getPlayerCount() {
+            try {
+                const response = await fetch('https://api.mcsrvstat.us/3/mc.allenpvp.net');
+                if (!response.ok) {
+                    throw new Error('API請求失敗');
+                }
+                
+                const data = await response.json();
+                const playerCountElement = document.getElementById('player-count');
+                playerCountElement.classList.remove('loading');
+                
+                if (data.online) {
+                    // 伺服器在線時顯示玩家數量
+                    const onlinePlayers = data.players?.online || 0;
+                    const maxPlayers = data.players?.max || 0;
+                    
+                    playerCountElement.textContent = `${onlinePlayers}/${maxPlayers}`;
+                    
+                    // 如果API返回了玩家列表，可以選擇性地顯示
+                    if (data.players?.list && data.players.list.length > 0) {
+                        const playerListTooltip = data.players.list.join(', ');
+                        playerCountElement.title = `在線玩家: ${playerListTooltip}`;
+                    }
+                } else {
+                    // 伺服器離線時顯示
+                    playerCountElement.textContent = '伺服器離線';
+                }
+            } catch (error) {
+                console.error('獲取玩家數量時出錯：', error);
+                document.getElementById('player-count').textContent = '無法獲取';
+            }
+        }
+        
+        // 頁面載入時獲取玩家數量
+        document.addEventListener('DOMContentLoaded', getPlayerCount);
+        
+        // 每60秒自動更新一次玩家數量
+        setInterval(getPlayerCount, 60000);
+		
         // 模擬從API獲取在線玩家數據
         function fetchOnlinePlayers() {
             // 在實際環境中，這裡應該是一個 fetch 請求到你的API端點
