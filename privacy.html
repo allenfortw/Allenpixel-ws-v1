@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AllenPixel - 隱私權政策</title>
+    <!-- Same style section as original -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap');
+        
+        :root {
+            --primary: #ff5555;
+            --secondary: #5555ff;
+            --accent: #ffaa00;
+            --dark: #1f1f1f;
+            --light: #f5f5f5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        .pixel-font {
+            font-family: 'Pixelify Sans', cursive;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 導航欄 */
+        nav {
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .logo h1 {
+            color: var(--light);
+            font-size: 24px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .nav-links a.active {
+            color: var(--primary);
+        }
+        
+        .nav-links a.active:after {
+            width: 100%;
+        }
+        
+        /* 英雄區塊 */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/800') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 72px;
+            margin-bottom: 20px;
+            color: var(--light);
+            text-shadow: 3px 3px 0 var(--primary);
+        }
+        
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin-right: 15px;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 85, 85, 0.3);
+        }
+        
+        .btn.secondary {
+            background-color: var(--secondary);
+        }
+        
+        .btn.secondary:hover {
+            box-shadow: 0 10px 20px rgba(85, 85, 255, 0.3);
+        }
+        
+        .hero-animation {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 400px;
+            height: 400px;
+            z-index: 1;
+        }
+        
+        /* 規則內容 */
+        .rules-content {
+            padding: 150px 0 100px;
+        }
+        
+        .rules-content h1 {
+            font-size: 48px;
+            color: var(--light);
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 3px 3px 0 var(--primary);
+        }
+        
+        .rules-content h2 {
+            font-size: 32px;
+            color: var(--primary);
+            margin: 40px 0 20px;
+        }
+        
+        .rules-content h3 {
+            font-size: 24px;
+            color: var(--accent);
+            margin: 20px 0 10px;
+        }
+        
+        .rules-content p {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #cccccc;
+        }
+        
+        .rules-content ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        .rules-content ul li {
+            margin-bottom: 10px;
+            color: #cccccc;
+        }
+        
+        /* 頁腳 */
+        footer {
+            background-color: #0f0f0f;
+            padding: 50px 0 20px;
+            position: relative;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            flex: 0 0 300px;
+        }
+        
+        .footer-logo img {
+            height: 60px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo p {
+            color: #999;
+            line-height: 1.6;
+        }
+        
+        .footer-links {
+            flex: 0 0 200px;
+        }
+        
+        .footer-links h3 {
+            color: var(--light);
+            margin-bottom: 20px;
+            font-size: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h3:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links ul li a {
+            color: #999;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            color: #666;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+        
+        /* 動畫效果 */
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        .pixel-decoration {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--primary);
+            animation: spin 10s linear infinite;
+            opacity: 0.5;
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .pixel-1 {
+            top: 10%;
+            left: 5%;
+        }
+        
+        .pixel-2 {
+            top: 20%;
+            right: 10%;
+            background-color: var(--secondary);
+            animation-delay: 2s;
+        }
+        
+        .pixel-3 {
+            bottom: 15%;
+            left: 15%;
+            background-color: var(--accent);
+            animation-delay: 4s;
+        }
+        
+        .pixel-4 {
+            bottom: 10%;
+            right: 5%;
+            animation-delay: 6s;
+        }
+        
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 48px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .rules-content h1 {
+                font-size: 36px;
+            }
+            
+            .rules-content h2 {
+                font-size: 28px;
+            }
+            
+            .rules-content h3 {
+                font-size: 20px;
+            }
+            
+            .footer-content > div {
+                flex: 0 0 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 導航欄 -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="https://i.imgur.com/NDbt2t6.png" alt="AllenPixel Logo">
+                <h1 class="pixel-font">AllenPixel</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">官網首頁</a>
+				<a href="tos.html">社群規則</a>
+                <a href="#" class="active">隱私權政策</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 英雄區塊 -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1 class="pixel-font animate-float">AllenPixel 隱私權政策</h1>
+            <p>當您使用本服務，即表示您已同意本隱私權政策的所有條款。請您在使用本服務前，詳細閱讀並了解本隱私權政策的內容。</p>
+            <a href="#rules-content" class="btn">閱讀政策</a>
+        </div>
+        
+        <div class="pixel-decoration pixel-1"></div>
+        <div class="pixel-decoration pixel-2"></div>
+        <div class="pixel-decoration pixel-3"></div>
+        <div class="pixel-decoration pixel-4"></div>
+        
+        <div class="hero-animation">
+            <!-- 動畫效果位置 -->
+        </div>
+    </section>
+    
+    <!-- 規則內容 -->
+    <section class="rules-content" id="rules-content">
+        <div class="container">
+            <h1 class="pixel-font">Allenpixel Network 隱私權政策</h1>
+            
+            <h2>前言</h2>
+            <p>歡迎您使用 Allenpixel Network（以下簡稱「本服務」）。本隱私權政策旨在說明我們如何收集、使用、儲存及保護您的個人資料。本服務為個人提供，非任何組織或公司所有。請您在使用本服務前，詳細閱讀並了解本隱私權政策的內容。當您使用本服務，即表示您已同意本隱私權政策的所有條款。</p>
+            
+            <h2>一、資料收集</h2>
+            <h3>1.1 我們收集的資料類型</h3>
+            <p>本服務可能收集以下類型的資料：</p>
+            <ul>
+                <li>帳號資料：您的 Minecraft 使用者名稱、UUID 及電子郵件地址</li>
+                <li>連線資料：IP 位址、裝置資訊、連線時間及時長</li>
+                <li>遊戲數據：遊戲進度、成就、統計數據及遊戲內行為記錄</li>
+                <li>交易資料：遊戲點數購買記錄、虛擬物品交易記錄</li>
+                <li>通訊內容：您在遊戲內的公開聊天及私人訊息內容</li>
+                <li>支付資訊：當您購買遊戲點數時提供的支付相關資料</li>
+            </ul>
+
+            <h3>1.2 收集方式</h3>
+            <ul>
+                <li>直接提供：您註冊帳號或購買服務時主動提供</li>
+                <li>自動收集：您使用本服務時，系統自動記錄的資料</li>
+                <li>第三方來源：與本服務合作的第三方支付服務提供商</li>
+            </ul>
+
+            <h2>二、資料使用目的</h2>
+            <p>我們收集和使用您的個人資料，僅限於以下目的：</p>
+            <ul>
+                <li>提供及維護本服務的正常運作</li>
+                <li>帳號驗證及安全管理</li>
+                <li>改善遊戲體驗及服務品質</li>
+                <li>處理遊戲內交易及點數購買</li>
+                <li>執行遊戲規則及防止不當行為</li>
+                <li>解決玩家間糾紛及客服支援</li>
+                <li>遊戲數據分析及統計（以匿名或彙總形式）</li>
+                <li>與您聯繫重要通知及更新</li>
+            </ul>
+
+            <h2>三、資料儲存與安全</h2>
+            <h3>3.1 資料儲存</h3>
+            <ul>
+                <li>您的個人資料將儲存於台灣地區的安全伺服器中</li>
+                <li>我們將在您的帳號有效期間及法律要求的期間內保存您的資料</li>
+                <li>非必要的遊戲記錄資料將定期清除或匿名化處理</li>
+            </ul>
+
+            <h3>3.2 資料安全措施</h3>
+            <ul>
+                <li>採用加密技術保護敏感資料的傳輸及儲存</li>
+                <li>實施嚴格的資料存取控制及權限管理</li>
+                <li>定期進行安全評估及漏洞修補</li>
+                <li>對可能接觸用戶資料的管理人員進行安全培訓</li>
+            </ul>
+
+            <h2>四、資料分享</h2>
+            <p>除非有以下情況，我們不會與第三方分享您的個人資料：</p>
+            <ul>
+                <li>經您明確同意</li>
+                <li>為完成交易或提供您請求的服務所必需</li>
+                <li>與提供技術支援或基礎設施服務的合作夥伴共享（如雲端服務提供商）</li>
+                <li>遵循法律要求、法院命令或政府機關合法要求</li>
+                <li>為保護 Allenpixel Network、用戶或公眾的權利、財產或安全</li>
+            </ul>
+
+            <h2>五、Cookie 及類似技術</h2>
+            <p>我們的網站可能使用 Cookie 及類似技術以改善用戶體驗：</p>
+            <ul>
+                <li>記住您的登入狀態及偏好設定</li>
+                <li>收集網站使用統計資料</li>
+                <li>您可以透過瀏覽器設定拒絕 Cookie，但可能影響部分功能的使用</li>
+            </ul>
+
+            <h2>六、您的權利</h2>
+            <p>根據個人資料保護法，您對於您的個人資料擁有以下權利：</p>
+            <ul>
+                <li>查詢及閱覽</li>
+                <li>製給複製本</li>
+                <li>補充或更正</li>
+                <li>請求停止蒐集、處理或利用</li>
+                <li>請求刪除</li>
+            </ul>
+            <p>如欲行使上述權利，請透過電子郵件 help@allenpvp.net 與我們聯繫。我們將在收到請求後 15 個工作日內回應。</p>
+
+            <h2>七、未成年人保護</h2>
+            <p>本服務對未成年人提供特別保護：</p>
+            <ul>
+                <li>未滿 16 歲的用戶應在法定代理人同意下使用本服務</li>
+                <li>我們不會刻意收集 7 歲以下兒童的個人資料</li>
+                <li>如發現未經許可收集兒童資料的情況，我們將立即刪除相關資料</li>
+            </ul>
+
+            <h2>八、隱私權政策更新</h2>
+            <p>我們可能會定期更新本隱私權政策：</p>
+            <ul>
+                <li>重大變更將透過電子郵件或服務內通知告知</li>
+                <li>更新後的隱私權政策將在公告後 14 日生效</li>
+                <li>繼續使用本服務視為同意更新後的隱私權政策</li>
+                <li>最新版隱私權政策將始終發布在我們的官方網站</li>
+            </ul>
+
+            <h2>九、聯絡我們</h2>
+            <p>若您對本隱私權政策有任何疑問或建議，請透過以下方式聯繫我們：</p>
+            <ul>
+                <li>電子郵件：help@allenpvp.net</li>
+                <li>Discord：https://dsc.gg/allenpixel</li>
+                <li>官方網站：https://www.allenpvp.net</li>
+            </ul>
+
+            <p><em>最後更新日期：2025年3月15日</em></p>
+        </div>
+    </section>
+    
+    <!-- 頁腳 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="https://i.imgur.com/NDbt2t6.png" alt="AllenPixel Logo">
+                    <p>AllenPixel - 台灣最頂尖的起床戰爭伺服器。提供低延遲、高級防外掛、台灣節點、繁體中文支援的優質遊戲體驗。</p>
+                </div>
+                <div class="footer-links">
+                    <h3>快速連結</h3>
+                    <ul>
+                        <li><a href="index.html">首頁</a></li>
+                        <li><a href="index.html#features">特色</a></li>
+                        <li><a href="index.html#how-to-join">如何加入</a></li>
+                        <li><a href="index.html#team">團隊</a></li>
+                        <li><a href="#">規則</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>聯繫我們</h3>
+                    <ul>
+                        <li><a href="https://discord.gg/5pjXXRc3Ut" target="_blank">Discord</a></li>
+                        <li><a href="mailto:info@allenpvp.net">Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 AllenPixel. 保留所有權利。</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
